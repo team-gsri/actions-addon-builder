@@ -43,7 +43,7 @@ We strongly encourage you to use 2FA with your Steam account.
 
 ### `flags`
 
-**Optional.** Additional flags to pass to AddonBuilder.
+**Optional.** Additional flags to pass to AddonBuilder. Separate multiple flags with commas.
 
 ## Outputs
 
@@ -56,8 +56,8 @@ This example will pack content of `addons/gsri_opex` into `addons/gsri_opex.pbo`
 ```yml
 uses: team-gsri/actions-addon-builder@master
 with:
-  target: addons
-  source: addons/gsri_opex
-  includes: *.sqf;*.wss;*.paa
-  flags: -prefix=fr/gsri/opex
+  target: 'addons'
+  source: 'addons/gsri_opex'
+  includes: '*.sqf;*.wss;*.paa'
+  flags: '-prefix=fr/gsri/opex,-clear'
 ```

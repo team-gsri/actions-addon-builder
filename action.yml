@@ -24,7 +24,9 @@ runs:
   steps:
 
     - shell: pwsh
-      run: |
-        $addonBuilderPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\bohemia interactive\AddonBuilder').path
-        $addonBuilderExe = "$addonBuilderPath\AddonBuilder.exe"
-        & "$addonBuilderExe" "${{ inputs.source }}" "${{ inputs.target }}" "-include=${{ inputs.includes }}" ${{ inputs.flags }}
+      run: >
+        ./build.ps1
+          -Source '${{ inputs.source }}'
+          -Target '${{ inputs.target }}'
+          -Includes '${{ inputs.includes }}'
+          -Flags ${{ inputs.flags }}
