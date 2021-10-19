@@ -1,0 +1,30 @@
+name: 'Arma 3 AddonBuilder'
+description: 'Compile an arma 3 mission or mod using AddonBuilder'
+inputs:
+
+  source:
+    description: 'Path to the mission directory containing a mission.sqm'
+    required: true
+
+  target:
+    description: 'Path to the directory where AddonBuilder will output the pbo'
+    required: true
+
+  includes:
+    description: 'List of wildcards of file to pack in the pbo, separated by a semicolon'
+    required: true
+
+  flags:
+    description: 'Additional options to pass to AddonBuilder'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+
+    - shell: pwsh
+      run: |
+        $addonBuilderPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\bohemia interactive\AddonBuilder').path
+        $addonBuilderExe = "$addonBuilderPath\AddonBuilder.exe"
+        & "$addonBuilderExe" "${{ inputs.source }}" "${{ inputs.target }}" "-include=${{ inputs.includes }}" ${{ inputs.flags }}
