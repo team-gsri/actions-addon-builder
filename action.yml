@@ -25,7 +25,7 @@ runs:
 
     - shell: pwsh
       run: >
-        ./build.ps1
+        ${{ github.action_path }}/build.ps1
           -Source '${{ inputs.source }}'
           -Target '${{ inputs.target }}'
           -Includes '${{ inputs.includes }}'
