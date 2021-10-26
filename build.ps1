@@ -17,9 +17,10 @@ param (
     $Flags = @{}
 )
 
+$pboIncludeFilename = '$PBOINCLUDE$'
 $addonBuilderPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\bohemia interactive\AddonBuilder').path
 $addonBuilderExe = "$addonBuilderPath\AddonBuilder.exe"
-$includeFilename = "$Source/`$PBOINCLUDE$"
+$includeFilename = "$env:GITHUB_WORKSPACE/$Source/$pboIncludeFilename"
 Write-Output "$Includes" | Out-File "$includeFilename"
-Write-Output "$addonBuilderExe" "$(Get-Location)/$Source" "$(Get-Location)/$Target" "-include=$includeFilename" $Flags
-& "$addonBuilderExe" "$(Get-Location)/$Source" "$(Get-Location)/$Target" "-include=$includeFilename" $Flags
+& 'C:\Program Files (x86)\Steam\steam.exe' ; Start-Sleep -Seconds 5
+& "$addonBuilderExe" "$env:GITHUB_WORKSPACE/$Source" "$env:GITHUB_WORKSPACE/$Target" "-include=$includeFilename" $Flags
