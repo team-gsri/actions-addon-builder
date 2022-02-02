@@ -18,9 +18,8 @@ param (
 )
 
 $pboIncludeFilename = '$PBOINCLUDE$'
-$addonBuilderPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\bohemia interactive\AddonBuilder').path
+$addonBuilderPath = "$env:ARMA3TOOLS\AddonBuilder"
 $addonBuilderExe = "$addonBuilderPath\AddonBuilder.exe"
-$includeFilename = "$env:GITHUB_WORKSPACE/$Source/$pboIncludeFilename"
+$includeFilename = "$env:GITHUB_WORKSPACE\$Source\$pboIncludeFilename"
 Write-Output "$Includes" | Out-File "$includeFilename"
-& 'C:\Program Files (x86)\Steam\steam.exe' ; Start-Sleep -Seconds 5
-& "$addonBuilderExe" "$env:GITHUB_WORKSPACE/$Source" "$env:GITHUB_WORKSPACE/$Target" "-include=$includeFilename" $Flags
+& "$addonBuilderExe" "$env:GITHUB_WORKSPACE\$Source" "$env:GITHUB_WORKSPACE\$Target" "-toolsDirectory=$env:ARMA3TOOLS" "-include=$includeFilename" $Flags
